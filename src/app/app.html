@@ -1,15 +1,33 @@
 <div class="flex justify-center mt-10">
-  <form class="bg-white shadow-md rounded-lg p-6 w-8-">
+  <form #userform="ngForm" class="bg-white shadow-md rounded-lg p-6 w-80">
     <label class="block text-gray-700 font-medium mb-2">
-      Your name:
+      Your Name
     </label>
-    <input
+
+    <input 
       type="text"
-      name="username"
-      [(ngModel)]="userName"
       placeholder="Enter your name"
-      class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-     />
-     <p>You Typed: {{ userName }}</p>
+     name="username"                
+      [(ngModel)]="userName"        
+      required                       
+      #name="ngModel"                
+      class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+    />
+         <!-- Error Message -->
+     <p *ngIf="name.invalid && (name.dirty || name.touched)" class="text-red-500 text-sm mt-1">
+       Name is required
+      </p>
+       <!-- Submit Button -->
+      <button
+        type="submit"
+        [disabled]="userform.invalid"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 mt-4 transition" >
+        Submit
+      </button>
   </form>
 </div>
+
+<!-- Live Preview -->
+<p class="text-center mt-6 text-lg">
+  Your name is: <span class="font-bold text-blue-600">{{ userName }}</span>
+</p>
